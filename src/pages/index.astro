@@ -1,0 +1,75 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+
+const guides = (await getCollection('guides')).sort(
+  (a, b) => a.data.published.valueOf() - b.data.published.valueOf(),
+);
+const cities = await getCollection('cities');
+---
+
+<BaseLayout title={site.name} description={site.description} canonicalPath="/">
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Hard-water directory</p>
+      <h1>{site.name}</h1>
+      <p class="lede">{site.tagline}</p>
+      <p class="stamp">Not a door-to-door quote</p>
+      <p>
+        SoftenerIndex is {site.publisher}’s editorial index for people who want to understand
+        a water-softener quote before they buy. We publish guides, city pages, and installer
+        listings. We do not invent hardness, price, or installer numbers.
+      </p>
+      <div class="actions">
+        <a class="btn" href="/guides/water-softener-cost-2026">Fair quote guide</a>
+        <a class="btn btn-ghost" href="/cities/phoenix-az">Phoenix, AZ</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Start here</h2>
+      <div class="grid-cards">
+        {
+          guides.map((guide) => (
+            <a class="card" href={`/guides/${guide.id}`}>
+              <p class="kicker">{guide.data.kicker ?? 'Guide'}</p>
+              <h3>{guide.data.title}</h3>
+              <p>{guide.data.description}</p>
+              <span class="more">Read the guide</span>
+            </a>
+          ))
+        }
+        {
+          cities.map((city) => (
+            <a class="card" href={`/cities/${city.id}`}>
+              <p class="kicker">City page</p>
+              <h3>{city.data.title}</h3>
+              <p>{city.data.description}</p>
+              <span class="more">Open the city file</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+      <h2>What this site is for</h2>
+      <p>
+        Door-to-door water treatment pitches collapse several decisions into one rushed number.
+        SoftenerIndex separates those decisions: what hardness actually is, what a quote should
+        itemize, when salt-based equipment is the wrong tool, and how to find a licensed local
+        installer without treating a sales visit as research.
+      </p>
+      <div class="callout">
+        <strong>Numbers policy.</strong> If a hardness, price, rating, or installer figure is not
+        in frontmatter with a source URL and a verification date, it is not on this site. Empty
+        fields are intentional. See <a href="/methodology">how we handle numbers</a>.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourcedFigure from '../../components/SourcedFigure.astro';
+import AffiliateCta from '../../components/AffiliateCta.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { id: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content, headings } = await render(guide);
+---
+
+<BaseLayout
+  title={guide.data.title}
+  description={guide.data.description}
+  canonicalPath={`/guides/${guide.id}`}
+>
+  <div class="wrap layout-split">
+    <article class="prose">
+      <p class="kicker">{guide.data.kicker ?? 'Guide'}</p>
+      <h1 class="page-title">{guide.data.title}</h1>
+      <p class="lede">{guide.data.description}</p>
+      <div class="meta-row">
+        <span>Published {guide.data.published.toISOString().slice(0, 10)}</span>
+        {
+          guide.data.updated && (
+            <span>Updated {guide.data.updated.toISOString().slice(0, 10)}</span>
+          )
+        }
+      </div>
+      {
+        guide.id === 'water-softener-cost-2026' && (
+          <SourcedFigure
+            label="Published price range"
+            value={
+              guide.data.published_price_low !== undefined &&
+              guide.data.published_price_high !== undefined
+                ? `${guide.data.published_price_low}–${guide.data.published_price_high}`
+                : undefined
+            }
+            unit={
+              [guide.data.price_currency, guide.data.price_unit].filter(Boolean).join(' ') ||
+              undefined
+            }
+            sourceUrl={guide.data.price_source_url}
+            verifiedOn={guide.data.price_verified_on}
+          />
+        )
+      }
+      <Content />
+      <AffiliateCta href="/go/water-test-kit" label="Water test kit (affiliate placeholder)" />
+    </article>
+    <aside class="rail" aria-label="On this page">
+      <h2>On this page</h2>
+      {
+        headings.filter((heading) => heading.depth === 2).length > 0 ? (
+          <ol>
+            {headings
+              .filter((heading) => heading.depth === 2)
+              .map((heading) => (
+                <li>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
+          </ol>
+        ) : (
+          <p>Read the full guide.</p>
+        )
+      }
+    </aside>
+  </div>
+</BaseLayout>

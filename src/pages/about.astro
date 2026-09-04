@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../lib/site';
+---
+
+<BaseLayout
+  title="About"
+  description="SoftenerIndex is Bob Molina’s editorial hard-water directory — not a dealership."
+  canonicalPath="/about"
+>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">About</p>
+      <h1>{site.name}</h1>
+      <p class="lede">{site.tagline}</p>
+      <p>
+        SoftenerIndex is published by {site.publisher}. It is a static, editorial directory for
+        people comparing water-softener quotes: what a fair quote includes, how salt-based and
+        salt-free products differ, and how to use public water reports and license lookups in a
+        given city.
+      </p>
+      <p>
+        It is not a plumbing company, not a financing desk, and not a door-to-door sales funnel.
+        If a hardness, price, or installer figure is missing, that is because it has not been
+        sourced yet — not because we filled the gap with a guess.
+      </p>
+      <p>
+        Editorial standards live on the <a href="/methodology">numbers policy</a> page. Affiliate
+        hops use stable <a href="/disclosure"><code>/go</code> paths</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

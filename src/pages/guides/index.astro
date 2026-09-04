@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const guides = (await getCollection('guides')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
+---
+
+<BaseLayout
+  title="Guides"
+  description="Editorial water-softener guides from SoftenerIndex: cost, quotes, and salt-based vs salt-free."
+  canonicalPath="/guides"
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Guides</p>
+      <h1>Read before you buy</h1>
+      <p class="lede">
+        These pages explain how to evaluate equipment and quotes. They do not substitute for a
+        licensed plumber, and they do not invent market prices.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid-cards">
+      {
+        guides.map((guide) => (
+          <a class="card" href={`/guides/${guide.id}`}>
+            <p class="kicker">{guide.data.kicker ?? 'Guide'}</p>
+            <h2>{guide.data.title}</h2>
+            <p>{guide.data.description}</p>
+            <span class="more">Read the guide</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+interface Props {
+  label: string;
+  value?: number | string;
+  unit?: string;
+  sourceUrl?: string;
+  verifiedOn?: Date;
+}
+
+const { label, value, unit, sourceUrl, verifiedOn } = Astro.props;
+const hasSourcedValue = value !== undefined && value !== null && Boolean(sourceUrl) && Boolean(verifiedOn);
+---
+
+{
+  hasSourcedValue ? (
+    <p>
+      <strong>{label}:</strong> {value}
+      {unit ? ` ${unit}` : ''}
+      {' '}
+      <span>
+        (source:
+        <a href={sourceUrl}>{sourceUrl}</a>,
+        verified {verifiedOn!.toISOString().slice(0, 10)})
+      </span>
+    </p>
+  ) : (
+    <div class="unverified">
+      <strong>Not published yet</strong>
+      <span>
+        SoftenerIndex does not invent a {label.toLowerCase()} figure. This field stays blank until a
+        source URL and verification date are in the content frontmatter.
+      </span>
+    </div>
+  )
+}

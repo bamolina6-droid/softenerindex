@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const affiliates = await getCollection('affiliates');
+  return affiliates.map((affiliate) => ({
+    params: { id: affiliate.id },
+    props: { affiliate },
+  }));
+}
+
+const { affiliate } = Astro.props;
+const { Content } = await render(affiliate);
+const live = affiliate.data.status === 'live' && affiliate.data.destination;
+
+if (live && affiliate.data.destination) {
+  return Astro.redirect(affiliate.data.destination, 302);
+}
+---
+
+<BaseLayout
+  title={affiliate.data.title}
+  description={affiliate.data.description}
+  canonicalPath={`/go/${affiliate.id}`}
+>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">Affiliate /go placeholder</p>
+      <h1>{affiliate.data.title}</h1>
+      <p class="lede">{affiliate.data.description}</p>
+      <div class="callout warn">
+        This partner destination is not live. SoftenerIndex will not send you off-site until
+        <code>status: live</code> and a real <code>destination</code> URL are set in the affiliate
+        frontmatter. Placeholder hops exist so the <code>/go/...</code> path is stable.
+      </div>
+      <p>Named partner (placeholder): {affiliate.data.partner}</p>
+      <Content />
+      <p>
+        Advertising disclosure: if this hop is later marked live, SoftenerIndex may earn a
+        commission. See the <a href="/disclosure">FTC disclosure</a>.
+      </p>
+      <p><a class="btn btn-ghost" href="/">Back to SoftenerIndex</a></p>
+    </div>
+  </section>
+</BaseLayout>

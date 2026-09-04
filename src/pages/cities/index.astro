@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const cities = await getCollection('cities');
+---
+
+<BaseLayout
+  title="Cities"
+  description="Local hard-water and installer pages. Listings stay empty until they are verified."
+  canonicalPath="/cities"
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Directory</p>
+      <h1>City pages</h1>
+      <p class="lede">
+        Each city file is a dossier: where to read the public water report, how to check licenses,
+        and which installers we have actually verified.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap grid-cards">
+      {
+        cities.map((city) => (
+          <a class="card" href={`/cities/${city.id}`}>
+            <p class="kicker">{city.data.state_abbr}</p>
+            <h2>{city.data.title}</h2>
+            <p>{city.data.description}</p>
+            <span class="more">Open the city file</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

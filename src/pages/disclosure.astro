@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Affiliate disclosure"
+  description="FTC disclosure for SoftenerIndex affiliate /go placeholder links."
+  canonicalPath="/disclosure"
+>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">Advertising</p>
+      <h1>FTC disclosure</h1>
+      <p class="lede">
+        SoftenerIndex uses stable <code>/go/...</code> paths for partner links. Those paths are
+        placeholders until a destination is configured.
+      </p>
+      <p>
+        Some links on this site are affiliate links. If you follow a live <code>/go</code> hop and
+        later buy from that partner, SoftenerIndex may receive a commission. That commission does
+        not change the editorial rule: we still do not invent hardness, installer, or price
+        numbers, and we do not let a partner’s pitch replace a public water-quality report or a
+        license lookup.
+      </p>
+      <p>
+        Placeholder hops (status <code>placeholder</code> in affiliate frontmatter) do not
+        redirect. They exist so URLs can be published in guides before a contract is live. When a
+        hop is marked <code>live</code>, the page will send you to the partner destination and the
+        link will be marked <code>rel="sponsored nofollow"</code> from in-content calls to action.
+      </p>
+      <p>
+        This disclosure is provided in the spirit of the Federal Trade Commission’s Endorsement
+        Guides: material connections should be clear. The banner on every page, this page, and
+        the labeled <code>/go</code> CTAs are the notice.
+      </p>
+      <h2>Current /go paths</h2>
+      <ul>
+        <li><a href="/go/water-test-kit">/go/water-test-kit</a></li>
+        <li><a href="/go/local-installer-match">/go/local-installer-match</a></li>
+        <li><a href="/go/salt-delivery">/go/salt-delivery</a></li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

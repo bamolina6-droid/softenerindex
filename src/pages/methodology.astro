@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="How we handle numbers"
+  description="SoftenerIndex never invents hardness, installer, or price figures. Frontmatter stays empty until sourced."
+  canonicalPath="/methodology"
+>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">Editorial standard</p>
+      <h1>How we handle numbers</h1>
+      <p class="lede">
+        If a figure is not copied from a named source on a named date, it does not appear on
+        SoftenerIndex.
+      </p>
+      <h2>What we will not invent</h2>
+      <ul>
+        <li>Hardness in grains per gallon, ppm, or “typical for this city.”</li>
+        <li>Installed price ranges, “average cost in 2026,” or financing examples.</li>
+        <li>Installer names, star ratings, review counts, or “top 3 in Phoenix.”</li>
+        <li>Permit fees, salt prices, or household water-use defaults.</li>
+      </ul>
+      <h2>What we will publish</h2>
+      <ul>
+        <li>How to read a quote and which line items to demand.</li>
+        <li>How salt-based and salt-free equipment actually differ.</li>
+        <li>Links to Consumer Confidence Reports and license lookups.</li>
+        <li>Frontmatter fields that are blank on purpose until the nightly workflow fills them.</li>
+      </ul>
+      <div class="callout">
+        Contributors: do not “round out” a city page with a remembered hardness number or a
+        recalled install price. Leave the field off. The templates in
+        <code>src/content/_templates/</code> show the allowed keys. The README describes the
+        nightly pass.
+      </div>
+    </div>
+  </section>
+</BaseLayout>

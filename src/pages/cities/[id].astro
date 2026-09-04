@@ -1,0 +1,128 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SourcedFigure from '../../components/SourcedFigure.astro';
+import AffiliateCta from '../../components/AffiliateCta.astro';
+
+export async function getStaticPaths() {
+  const cities = await getCollection('cities');
+  return cities.map((city) => ({
+    params: { id: city.id },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props;
+const { Content } = await render(city);
+const installers = (await getCollection('installers')).filter(
+  (installer) =>
+    installer.data.listed &&
+    installer.data.city === city.id &&
+    installer.data.source_url &&
+    installer.data.verified_on,
+);
+---
+
+<BaseLayout
+  title={city.data.title}
+  description={city.data.description}
+  canonicalPath={`/cities/${city.id}`}
+>
+  <div class="wrap layout-split">
+    <article class="prose">
+      <p class="kicker">City file · {city.data.state}</p>
+      <h1 class="page-title">{city.data.title}</h1>
+      <p class="lede">{city.data.description}</p>
+      <div class="meta-row">
+        <span>Published {city.data.published.toISOString().slice(0, 10)}</span>
+        {
+          city.data.updated && (
+            <span>Updated {city.data.updated.toISOString().slice(0, 10)}</span>
+          )
+        }
+        {
+          city.data.water_utility && <span>Utility: {city.data.water_utility}</span>
+        }
+      </div>
+      <SourcedFigure
+        label="Hardness"
+        value={city.data.hardness_gpg ?? city.data.hardness_ppm}
+        unit={
+          city.data.hardness_gpg !== undefined
+            ? 'grains per gallon'
+            : city.data.hardness_ppm !== undefined
+              ? 'ppm as CaCO3'
+              : undefined
+        }
+        sourceUrl={city.data.hardness_source_url}
+        verifiedOn={city.data.hardness_verified_on}
+      />
+      {
+        city.data.ccr_url && (
+          <p>
+            Consumer Confidence Report / water-quality page:{' '}
+            <a href={city.data.ccr_url}>{city.data.ccr_url}</a>
+          </p>
+        )
+      }
+      {
+        city.data.license_lookup_url && (
+          <p>
+            License lookup ({city.data.license_authority ?? 'licensing authority'}):{' '}
+            <a href={city.data.license_lookup_url}>{city.data.license_lookup_url}</a>
+          </p>
+        )
+      }
+      <Content />
+
+      <h2 id="installers">Verified installers</h2>
+      {
+        installers.length === 0 ? (
+          <div class="unverified">
+            <strong>No verified installer listings</strong>
+            <span>
+              SoftenerIndex does not invent installer names, ratings, or prices. Listings appear
+              here only after license, location, and source fields are filled in the nightly
+              frontmatter workflow.
+            </span>
+          </div>
+        ) : (
+          <div class="installer-list">
+            {installers.map((installer) => (
+              <article class="card">
+                <h3>{installer.data.name}</h3>
+                {installer.data.license_number && (
+                  <p>
+                    License: {installer.data.license_number}
+                    {installer.data.license_authority ? ` (${installer.data.license_authority})` : ''}
+                  </p>
+                )}
+                {installer.data.address && <p>{installer.data.address}</p>}
+                {installer.data.phone && <p>{installer.data.phone}</p>}
+                {installer.data.website && (
+                  <p>
+                    <a href={installer.data.website}>{installer.data.website}</a>
+                  </p>
+                )}
+                <p>
+                  Verified {installer.data.verified_on!.toISOString().slice(0, 10)} from{' '}
+                  <a href={installer.data.source_url}>{installer.data.source_url}</a>
+                </p>
+              </article>
+            ))}
+          </div>
+        )
+      }
+      <AffiliateCta href="/go/local-installer-match" label="Installer match (affiliate placeholder)" />
+    </article>
+    <aside class="rail">
+      <h2>Use this file</h2>
+      <ol>
+        <li>Open the water-quality report, not a sales flyer.</li>
+        <li>Read the <a href="/guides/how-to-read-a-dealer-quote">quote checklist</a>.</li>
+        <li>Compare salt-based vs salt-free in the <a href="/guides/salt-based-vs-salt-free">guide</a>.</li>
+        <li>Confirm any installer on the license lookup above.</li>
+      </ol>
+    </aside>
+  </div>
+</BaseLayout>
