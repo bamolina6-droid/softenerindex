@@ -54,10 +54,10 @@ const hardnessSourced = city.data.hardnessSource != null;
               <strong>Hardness:</strong>
               {
                 hardnessSourced && city.data.hardnessGpg != null
-                  ? `${city.data.hardnessGpg} gpg`
+                  ? ` ${city.data.hardnessGpg} gpg`
                   : hardnessSourced && city.data.hardnessMgL != null
-                    ? `${city.data.hardnessMgL} mg/L as CaCO₃`
-                    : 'Not sourced — no figure published on this page.'
+                    ? ` ${city.data.hardnessMgL} mg/L as CaCO₃`
+                    : ' Not sourced — no figure published on this page.'
               }
             </p>
             {
