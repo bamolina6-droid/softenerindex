@@ -1,0 +1,91 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import AffiliateCta from '../../components/AffiliateCta.astro';
+import Disclosure from '../../components/Disclosure.astro';
+import { cityPath, formatUtcDate } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { id: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+const relatedGuides = (
+  await Promise.all((guide.data.relatedGuides ?? []).map((ref) => getEntry(ref)))
+).filter((entry) => entry != null);
+
+const relatedCities = (
+  await Promise.all((guide.data.relatedCities ?? []).map((ref) => getEntry(ref)))
+).filter((entry) => entry != null);
+
+const offers = (
+  await Promise.all((guide.data.affiliateOffers ?? []).map((ref) => getEntry(ref)))
+).filter((entry) => entry != null);
+
+const updated = formatUtcDate(guide.data.updated);
+---
+
+<Page title={guide.data.title} description={guide.data.description}>
+  <article>
+    <header class="hero">
+      <div class="wrap">
+        <p class="kicker">{guide.data.kicker}</p>
+        <h1>{guide.data.title}</h1>
+        <p class="lede">{guide.data.description}</p>
+        <p class="meta-row">
+          <span>Updated {updated}</span>
+          <span>By Bob Molina</span>
+        </p>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap two-col">
+        <div class="prose">
+          <Content />
+          {offers.map((offer) => <AffiliateCta offer={offer} />)}
+          <Disclosure compact />
+        </div>
+        <aside class="sidebar">
+          {
+            relatedGuides.length > 0 && (
+              <div class="callout">
+                <h2>Related guides</h2>
+                <ul>
+                  {relatedGuides.map((item) => (
+                    <li>
+                      <a href={`/guides/${item.id}`}>{item.data.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+          {
+            relatedCities.length > 0 && (
+              <div class="callout">
+                <h2>City pages</h2>
+                <ul>
+                  {relatedCities.map((city) => (
+                    <li>
+                      <a
+                        href={cityPath(city)}
+                      >
+                        {city.data.city}, {city.data.stateAbbr}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+        </aside>
+      </div>
+    </div>
+  </article>
+</Page>

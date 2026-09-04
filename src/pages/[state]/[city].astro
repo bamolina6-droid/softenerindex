@@ -1,0 +1,153 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import AffiliateCta from '../../components/AffiliateCta.astro';
+import Disclosure from '../../components/Disclosure.astro';
+import { formatUtcDate } from '../../lib/paths';
+
+export async function getStaticPaths() {
+  const cities = await getCollection('cities');
+  return cities.map((city) => ({
+    params: {
+      state: city.data.stateAbbr.toLowerCase(),
+      city: city.data.city.toLowerCase().replace(/\s+/g, '-'),
+    },
+    props: { city },
+  }));
+}
+
+const { city } = Astro.props;
+const { Content } = await render(city);
+
+const guides = (
+  await Promise.all((city.data.relatedGuides ?? []).map((ref) => getEntry(ref)))
+).filter((entry) => entry != null);
+
+const offers = (
+  await Promise.all((city.data.affiliateOffers ?? []).map((ref) => getEntry(ref)))
+).filter((entry) => entry != null);
+
+const verified = formatUtcDate(city.data.lastVerified);
+
+const hardnessSourced = city.data.hardnessSource != null;
+---
+
+<Page title={city.data.title} description={city.data.description}>
+  <article>
+    <header class="hero">
+      <div class="wrap">
+        <p class="kicker">{city.data.city}, {city.data.state}</p>
+        <h1>{city.data.title}</h1>
+        <p class="lede">{city.data.description}</p>
+        <p class="meta-row">
+          <span class={`badge ${city.data.listingStatus}`}>{city.data.listingStatus}</span>
+          <span>Last verified {verified}</span>
+        </p>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap two-col">
+        <div>
+          <div class="callout caution">
+            <h2>Sourced data box</h2>
+            <p>
+              <strong>Hardness:</strong>
+              {
+                hardnessSourced && city.data.hardnessGpg != null
+                  ? `${city.data.hardnessGpg} gpg`
+                  : hardnessSourced && city.data.hardnessMgL != null
+                    ? `${city.data.hardnessMgL} mg/L as CaCO₃`
+                    : 'Not sourced — no figure published on this page.'
+              }
+            </p>
+            {
+              city.data.hardnessSource && (
+                <p class="fine-print">
+                  Source: {city.data.hardnessSource.name} (
+                  <a href={city.data.hardnessSource.url}>{city.data.hardnessSource.url}</a>
+                  ), retrieved {city.data.hardnessSource.retrieved.toISOString().slice(0, 10)}.
+                </p>
+              )
+            }
+            <p>{city.data.hardnessNote}</p>
+            <p>
+              <strong>Installers on file:</strong> {city.data.installers.length}
+              {city.data.listingStatus === 'research' && ' (research page; roster not opened).'}
+            </p>
+          </div>
+
+          {
+            city.data.installers.length === 0 ? (
+              <div class="empty-data">
+                <h2>Installer directory</h2>
+                <p>
+                  No installer rows yet. SoftenerIndex will not invent company names, ratings,
+                  or “serving Phoenix since…” copy. Verify licenses at bid time via the sources
+                  listed here.
+                </p>
+              </div>
+            ) : (
+              <div>
+                <h2>Sourced installers</h2>
+                <ul>
+                  {city.data.installers.map((row) => (
+                    <li>
+                      <strong>{row.name}</strong>
+                      {row.licenseId && ` · license ${row.licenseId}`}
+                      {row.website && (
+                        <>
+                          {' '}
+                          · <a href={row.website}>{row.website}</a>
+                        </>
+                      )}
+                      <div class="fine-print">Source: {row.sourceName}</div>
+                      {row.notes && <div>{row.notes}</div>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          <div class="prose">
+            <Content />
+          </div>
+          {offers.map((offer) => <AffiliateCta offer={offer} />)}
+          <Disclosure compact />
+        </div>
+        <aside class="sidebar">
+          <div class="callout">
+            <h2>Primary sources</h2>
+            <ul>
+              {
+                city.data.sources.map((source) => (
+                  <li>
+                    <a href={source.url}>{source.name}</a>
+                    <div class="fine-print">
+                      Retrieved {source.retrieved.toISOString().slice(0, 10)}
+                      {source.notes ? ` · ${source.notes}` : ''}
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+          {
+            guides.length > 0 && (
+              <div class="callout">
+                <h2>Read with this city</h2>
+                <ul>
+                  {guides.map((guide) => (
+                    <li>
+                      <a href={`/guides/${guide.id}`}>{guide.data.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+        </aside>
+      </div>
+    </div>
+  </article>
+</Page>

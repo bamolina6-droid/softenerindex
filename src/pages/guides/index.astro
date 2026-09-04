@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import Card from '../../components/Card.astro';
+
+const guides = (await getCollection('guides')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
+---
+
+<Page
+  title="Guides"
+  description="SoftenerIndex guides: 2026 fair-quote costs, how to read a dealer quote, and salt-based vs salt-free treatment."
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Guides</p>
+      <h1>Read before you sign a work order</h1>
+      <p class="lede">
+        Three editorial pieces. No national price averages. No performance percentages we
+        did not measure.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap card-grid">
+      {
+        guides.map((guide) => (
+          <Card
+            href={`/guides/${guide.id}`}
+            kicker={guide.data.kicker}
+            title={guide.data.title}
+            description={guide.data.description}
+          />
+        ))
+      }
+    </div>
+  </section>
+</Page>

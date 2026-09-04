@@ -1,0 +1,59 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page
+  title="Methodology"
+  description="How SoftenerIndex handles hardness, installer lists, and prices: sourced frontmatter or blank fields. Never invented numbers."
+>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">Editorial standards</p>
+      <h1>Methodology</h1>
+      <p class="lede">
+        SoftenerIndex would rather ship an empty data box than a round number that sounds
+        local. This page is the public version of the nightly frontmatter workflow in the
+        repository README.
+      </p>
+      <h2>What may appear as a number</h2>
+      <ul>
+        <li>
+          <strong>Hardness</strong> only with <code>hardnessSource</code> (name, URL, retrieved
+          date). Grains per gallon and mg/L as CaCO₃ are optional fields; the schema refuses
+          either without a source.
+        </li>
+        <li>
+          <strong>Installers</strong> only as rows with a name and a source. City pages stay
+          <code>listingStatus: research</code> until that array is non-empty.
+        </li>
+        <li>
+          <strong>Prices</strong> are not a collection field. Guides talk about quote structure,
+          not national or Phoenix averages we did not collect.
+        </li>
+      </ul>
+      <h2>What will not appear</h2>
+      <ul>
+        <li>Converted adjectives (“very hard”) turned into grains.</li>
+        <li>Dealer counts inferred from ads or map pins.</li>
+        <li>Installed-cost ranges copied from other content farms.</li>
+        <li>Performance percentages for salt-free devices we did not test.</li>
+      </ul>
+      <h2>City pages</h2>
+      <p>
+        Phoenix ships first, linked to City of Phoenix water-quality materials and the Arizona
+        Registrar of Contractors. Those links are starting points for the reader. They are not
+        a substitute for pasting a hardness table into frontmatter without reading it.
+      </p>
+      <p>
+        Each city file has <code>lastVerified</code>. The nightly workflow updates that date
+        even when nothing new is sourced, so “we looked” is visible and “we guessed” is not.
+      </p>
+      <h2>Corrections</h2>
+      <p>
+        If a sourced figure changes in a later utility report, replace the number, the URL if
+        needed, and the retrieved date in the same commit. Do not leave a stale grain value
+        with a fresh timestamp.
+      </p>
+    </div>
+  </section>
+</Page>

@@ -1,0 +1,48 @@
+---
+import Page from '../layouts/Page.astro';
+---
+
+<Page
+  title="FTC affiliate disclosure"
+  description="SoftenerIndex advertising disclosure: /go links, placeholder partners, and how commissions will be labeled if a partnership goes live."
+>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">Legal</p>
+      <h1>FTC disclosure</h1>
+      <p class="lede">
+        SoftenerIndex is published by Bob Molina. This page is the advertising disclosure for
+        affiliate and sponsored links.
+      </p>
+      <h2>Material connections</h2>
+      <p>
+        Some outbound links on SoftenerIndex are reserved affiliate routes under
+        <code>/go/…</code>. If a partner relationship is active, Molina may receive a
+        commission if you click and later purchase. That does not change the editorial rule
+        that hardness, installer rosters, and prices must be sourced — commissions are not a
+        reason to invent a number.
+      </p>
+      <h2>Placeholders</h2>
+      <p>
+        Slugs such as <a href="/go/home-water-test">/go/home-water-test</a> and
+        <a href="/go/compare-local-quotes">/go/compare-local-quotes</a> currently use
+        <code>status: placeholder</code> and point at <code>example.com</code>. Those are not
+        live offers, not endorsements, and not installer referrals. The interstitial on each
+        <code>/go</code> page states the partner field, the disclosure text from frontmatter,
+        and a sponsored/nofollow continue link.
+      </p>
+      <h2>How we label</h2>
+      <ul>
+        <li>In-article affiliate modules say “Affiliate link” and placeholder vs sponsored.</li>
+        <li>Continue buttons on <code>/go</code> pages use <code>rel="sponsored nofollow noopener noreferrer"</code>.</li>
+        <li>The site footer repeats a short disclosure on every page.</li>
+      </ul>
+      <h2>What we do not sell from this page</h2>
+      <p>
+        SoftenerIndex does not sell water-softener equipment from this disclosure. City
+        installer arrays are independent of <code>/go</code> and remain empty until a named
+        public source supports a row.
+      </p>
+    </div>
+  </section>
+</Page>
