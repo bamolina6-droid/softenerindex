@@ -1,0 +1,29 @@
+---
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const links = [
+  { href: '/guides', label: 'Guides' },
+  { href: '/cities', label: 'Cities' },
+  { href: '/az/phoenix', label: 'Phoenix, AZ' },
+  { href: '/methodology', label: 'Methodology' },
+  { href: '/disclosure', label: 'Disclosure' },
+];
+---
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      <span class="brand-mark">Softener<span>Index</span></span>
+      <span class="brand-tag">Hard water, fair prices, local pros — not a door-to-door quote.</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      {
+        links.map((link) => (
+          <a href={link.href} aria-current={path === link.href || path.startsWith(`${link.href}/`) ? 'page' : undefined}>
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>

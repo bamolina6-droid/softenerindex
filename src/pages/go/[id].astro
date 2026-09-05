@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import Disclosure from '../../components/Disclosure.astro';
+
+export async function getStaticPaths() {
+  const affiliates = await getCollection('affiliates');
+  return affiliates.map((offer) => ({
+    params: { id: offer.id },
+    props: { offer },
+  }));
+}
+
+const { offer } = Astro.props;
+const isPlaceholder = offer.data.status === 'placeholder';
+---
+
+<Page title={offer.data.title} description={offer.data.disclosure}>
+  <section class="hero">
+    <div class="wrap prose">
+      <p class="kicker">Leaving SoftenerIndex · /go/{offer.id}</p>
+      <h1>{offer.data.title}</h1>
+      <p class="lede">{offer.data.disclosure}</p>
+      <p>
+        <span class={`badge ${offer.data.status}`}>{offer.data.status}</span>
+        {' · '}
+        Partner on file: {offer.data.partner}
+      </p>
+      <Disclosure />
+      <p>
+        <a class="btn" href={offer.data.destinationUrl} rel="sponsored nofollow noopener noreferrer">
+          {offer.data.ctaLabel}
+        </a>
+      </p>
+      {
+        isPlaceholder && (
+          <p class="fine-print">
+            Destination URL is a reserved placeholder ({offer.data.destinationUrl}). It is not
+            an installer, a price, or a hardness result.
+          </p>
+        )
+      }
+      <p><a class="btn secondary" href="/disclosure">Read the FTC disclosure</a></p>
+    </div>
+  </section>
+</Page>

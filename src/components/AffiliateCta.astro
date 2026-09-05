@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  offer: CollectionEntry<'affiliates'>;
+}
+
+const { offer } = Astro.props;
+---
+
+<aside class="affiliate" data-affiliate-status={offer.data.status}>
+  <span class="label">
+    Affiliate link · {offer.data.status === 'placeholder' ? 'placeholder destination' : 'sponsored'}
+  </span>
+  <strong>{offer.data.title}</strong>
+  <p class="disclosure">{offer.data.disclosure}</p>
+  <a class="btn" href={`/go/${offer.id}`}>{offer.data.ctaLabel}</a>
+  {
+    offer.data.status === 'placeholder' && (
+      <p class="fine-print">
+        Partner: {offer.data.partner}. This /go slug is reserved so a live URL can drop in
+        without rewriting articles.
+      </p>
+    )
+  }
+</aside>

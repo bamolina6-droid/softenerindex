@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../layouts/Page.astro';
+import Card from '../components/Card.astro';
+import Disclosure from '../components/Disclosure.astro';
+import { cityPath } from '../lib/paths';
+
+const guides = (await getCollection('guides')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
+const cities = await getCollection('cities');
+---
+
+<Page
+  title="SoftenerIndex"
+  description="Hard water, fair prices, local pros — not a door-to-door quote. An editorial water-softener directory by Bob Molina."
+  canonicalPath="/"
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Editorial directory · Bob Molina</p>
+      <h1>Hard water, fair prices, local pros — not a door-to-door quote.</h1>
+      <p class="lede">
+        SoftenerIndex is a small, sourced guide to residential water softeners. We publish
+        quote literacy, chemistry that sales decks blur, and city pages that stay blank
+        until a utility report or a license lookup can back a number.
+      </p>
+      <p class="meta-row">
+        <span>No invented hardness</span>
+        <span>No invented installer lists</span>
+        <span>No invented price bands</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Start with the guides</h2>
+      <div class="card-grid">
+        {
+          guides.map((guide) => (
+            <Card
+              href={`/guides/${guide.id}`}
+              kicker={guide.data.kicker}
+              title={guide.data.title}
+              description={guide.data.description}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two-col">
+      <div>
+        <h2>City pages, starting with Phoenix</h2>
+        <p>
+          Directory pages are not lead-gen landing pages. If we do not have a sourced
+          hardness figure or a sourced installer row, we say so and link you to the
+          primary documents instead.
+        </p>
+        <div class="card-grid">
+          {
+            cities.map((city) => (
+              <Card
+                href={cityPath(city)}
+                kicker={`${city.data.city}, ${city.data.stateAbbr}`}
+                badge={city.data.listingStatus}
+                title={city.data.title}
+                description={city.data.description}
+              />
+            ))
+          }
+        </div>
+      </div>
+      <aside class="sidebar">
+        <div class="callout caution">
+          <h2>What you will not find</h2>
+          <p>
+            National “average installed cost,” a Phoenix grains-per-gallon we guessed,
+            or a ranked dealer list scraped from ads. Read the
+            <a href="/methodology">methodology</a>.
+          </p>
+        </div>
+        <Disclosure />
+      </aside>
+    </div>
+  </section>
+</Page>

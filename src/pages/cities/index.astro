@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import Card from '../../components/Card.astro';
+import { cityPath } from '../../lib/paths';
+
+const cities = (await getCollection('cities')).sort((a, b) =>
+  a.data.city.localeCompare(b.data.city),
+);
+---
+
+<Page
+  title="City installer pages"
+  description="SoftenerIndex city pages. Installer rosters and hardness figures stay empty until a named source is attached."
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Directory</p>
+      <h1>Cities</h1>
+      <p class="lede">
+        Research pages are first-class. If Phoenix still has an empty installer array, that
+        is the listing — not a failure to scrape Yelp.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap card-grid">
+      {
+        cities.map((city) => (
+          <Card
+            href={cityPath(city)}
+            kicker={`${city.data.city}, ${city.data.stateAbbr}`}
+            badge={city.data.listingStatus}
+            title={city.data.title}
+            description={city.data.description}
+          />
+        ))
+      }
+    </div>
+  </section>
+</Page>

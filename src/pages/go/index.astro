@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '../../layouts/Page.astro';
+import Card from '../../components/Card.astro';
+
+const affiliates = (await getCollection('affiliates')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title),
+);
+---
+
+<Page
+  title="Affiliate /go links"
+  description="Reserved SoftenerIndex affiliate placeholders. Destinations are example.com until a live partner URL is configured."
+>
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker">Affiliate routing</p>
+      <h1>All /go destinations</h1>
+      <p class="lede">
+        Articles never hard-code vendor URLs. They point here, so a partner can be swapped
+        in frontmatter without rewriting the guides. Placeholder status means example.com,
+        not a live offer.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap card-grid">
+      {
+        affiliates.map((offer) => (
+          <Card
+            href={`/go/${offer.id}`}
+            kicker={offer.data.partner}
+            badge={offer.data.status}
+            title={offer.data.title}
+            description={offer.data.disclosure}
+          />
+        ))
+      }
+    </div>
+  </section>
+</Page>

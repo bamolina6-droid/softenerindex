@@ -1,0 +1,27 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+{
+  compact ? (
+    <p class="disclosure">
+      <strong>Disclosure:</strong> SoftenerIndex may earn a commission from some links.
+      Destinations marked placeholder are not live offers. <a href="/disclosure">Full disclosure</a>.
+    </p>
+  ) : (
+    <aside class="callout" aria-label="Advertising disclosure">
+      <h2>Advertising disclosure</h2>
+      <p class="disclosure">
+        SoftenerIndex is an independent editorial site published by Bob Molina. If we later
+        accept affiliate commissions, those links will route through <code>/go</code> and will
+        be labeled. Placeholder destinations are not recommendations and are not live checkout
+        pages. We do not invent hardness, installer, or price figures to make a page look
+        complete. <a href="/disclosure">Read the full FTC disclosure</a>.
+      </p>
+    </aside>
+  )
+}
