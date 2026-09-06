@@ -20,6 +20,7 @@ This is not a dealer website. `npm run build` emits HTML into `dist/`.
 | `/guides/water-softener-cost-2026` | `src/content/guides/water-softener-cost-2026.md` |
 | `/guides/how-to-read-a-dealer-quote` | `src/content/guides/how-to-read-a-dealer-quote.md` |
 | `/guides/salt-based-vs-salt-free` | `src/content/guides/salt-based-vs-salt-free.md` |
+| `/guides/hardness-test-kits-vs-lab-tests` | `src/content/guides/hardness-test-kits-vs-lab-tests.md` |
 | `/az/phoenix` | `src/content/cities/phoenix-az.md` |
 | `/go/home-water-test`, `/go/compare-local-quotes` | `src/content/affiliates/*.md` |
 | `/disclosure` | FTC advertising disclosure |
