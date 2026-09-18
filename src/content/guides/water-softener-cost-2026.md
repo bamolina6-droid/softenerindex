@@ -7,6 +7,7 @@ kicker: Fair quote guide
 relatedGuides:
   - how-to-read-a-dealer-quote
   - salt-based-vs-salt-free
+  - best-water-softeners-under-2000
 relatedCities:
   - phoenix-az
 affiliateOffers:
@@ -69,6 +70,8 @@ The SoftenerIndex tagline is literal. A fair process looks like this:
 4. Sleep on it. Regeneration salt will still exist in the morning.
 
 High-pressure tells — the truck is already in the driveway, the “factory discount expires at sundown,” the model number is only on the sales binder — are sales mechanics. They are not evidence that the price is fair.
+
+If you are shopping a **published equipment shelf price** under $2,000 (not an installed average), see [Best water softeners under $2,000](/guides/best-water-softeners-under-2000).
 
 ## How to use this site with a real bid
 
