@@ -21,6 +21,7 @@ This is not a dealer website. `npm run build` emits HTML into `dist/`.
 | `/guides/how-to-read-a-dealer-quote` | `src/content/guides/how-to-read-a-dealer-quote.md` |
 | `/guides/salt-based-vs-salt-free` | `src/content/guides/salt-based-vs-salt-free.md` |
 | `/az/phoenix` | `src/content/cities/phoenix-az.md` |
+| `/ok/oklahoma-city` | `src/content/cities/oklahoma-city-ok.md` |
 | `/go/home-water-test`, `/go/compare-local-quotes` | `src/content/affiliates/*.md` |
 | `/disclosure` | FTC advertising disclosure |
 | `/methodology` | Public version of the data rules |
