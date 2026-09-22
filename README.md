@@ -26,6 +26,7 @@ This is not a dealer website. `npm run build` emits HTML into `dist/`.
 | `/az/tucson` | `src/content/cities/tucson-az.md` |
 | `/tx/dallas-fort-worth` | `src/content/cities/dallas-fort-worth-tx.md` |
 | `/co/denver` | `src/content/cities/denver-co.md` |
+| `/nm/albuquerque` | `src/content/cities/albuquerque-nm.md` |
 | `/nv/las-vegas` | `src/content/cities/las-vegas-nv.md` |
 | `/in/indianapolis` | `src/content/cities/indianapolis-in.md` |
 | `/go/home-water-test`, `/go/compare-local-quotes` | `src/content/affiliates/*.md` |
