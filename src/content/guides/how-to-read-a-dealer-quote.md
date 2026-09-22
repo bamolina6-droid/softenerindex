@@ -2,11 +2,12 @@
 title: "How to read a water-softener dealer quote"
 description: "A line-by-line checklist for dealer quotes: equipment identity, capacity, labor, exclusions, and pressure tactics — without invented price benchmarks."
 published: 2026-09-04
-updated: 2026-09-04
+updated: 2026-09-21
 kicker: Quote literacy
 relatedGuides:
   - water-softener-cost-2026
   - salt-based-vs-salt-free
+  - culligan-kinetico-fleck-clack-brand-decode
 affiliateOffers:
   - compare-local-quotes
   - home-water-test
@@ -37,6 +38,8 @@ Demand the identity of the product:
 - Brine tank size and whether grid / safety float is included.
 
 If capacity is missing, the quote is not sized. If the brand is missing, you are buying a story.
+
+Culligan and Kinetico usually name **dealer packages**; Fleck and Clack usually name **control valves** that assemblers put on tanks. Decode those four names in [Culligan / Kinetico / Fleck / Clack brand decode](/guides/culligan-kinetico-fleck-clack-brand-decode) before you treat a valve nickname as a finished softener.
 
 ## 3. What water it was sized for
 
