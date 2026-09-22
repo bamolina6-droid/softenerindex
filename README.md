@@ -22,6 +22,7 @@ This is not a dealer website. `npm run build` emits HTML into `dist/`.
 | `/guides/salt-based-vs-salt-free` | `src/content/guides/salt-based-vs-salt-free.md` |
 | `/guides/hardness-test-kits-vs-lab-tests` | `src/content/guides/hardness-test-kits-vs-lab-tests.md` |
 | `/guides/well-water-softener-iron-filter` | `src/content/guides/well-water-softener-iron-filter.md` |
+| `/guides/best-water-softeners-under-2000` | `src/content/guides/best-water-softeners-under-2000.md` |
 | `/az/phoenix` | `src/content/cities/phoenix-az.md` |
 | `/az/tucson` | `src/content/cities/tucson-az.md` |
 | `/tx/dallas-fort-worth` | `src/content/cities/dallas-fort-worth-tx.md` |
