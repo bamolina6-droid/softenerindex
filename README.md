@@ -23,6 +23,7 @@ This is not a dealer website. `npm run build` emits HTML into `dist/`.
 | `/guides/hardness-test-kits-vs-lab-tests` | `src/content/guides/hardness-test-kits-vs-lab-tests.md` |
 | `/guides/well-water-softener-iron-filter` | `src/content/guides/well-water-softener-iron-filter.md` |
 | `/az/phoenix` | `src/content/cities/phoenix-az.md` |
+| `/az/tucson` | `src/content/cities/tucson-az.md` |
 | `/tx/dallas-fort-worth` | `src/content/cities/dallas-fort-worth-tx.md` |
 | `/co/denver` | `src/content/cities/denver-co.md` |
 | `/nv/las-vegas` | `src/content/cities/las-vegas-nv.md` |
