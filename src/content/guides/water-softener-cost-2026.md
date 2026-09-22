@@ -7,6 +7,7 @@ kicker: Fair quote guide
 relatedGuides:
   - how-to-read-a-dealer-quote
   - salt-based-vs-salt-free
+  - hardness-test-kits-vs-lab-tests
   - best-water-softeners-under-2000
 relatedCities:
   - phoenix-az
